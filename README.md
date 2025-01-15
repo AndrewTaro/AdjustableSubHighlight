@@ -2,9 +2,8 @@
 The submarines are highlighted with red when they are underwater.  
 However, the color does not change even if the color-blind settings are enabled, making people with these difficulties suffer.
 
-This mod resolves it and provides further settings to modify the highlight colors.
-
-![image](https://github.com/user-attachments/assets/dbcc87c2-59ec-4a5a-91e8-87bc0608f896)
+This mod resolves it and provides further settings to modify the highlight color for each depth and lock-on state.
+![image](https://github.com/user-attachments/assets/63488271-727c-4cbf-be6e-570e5c86f236)
 
 # Install
 1. Download a zip.
