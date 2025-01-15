@@ -24,7 +24,7 @@ class ColorNames(object):
     BLUE = 'Blue'
     ALPHA = 'Opacity'
 
-STATE_NAME_TO_PREF_BASE_KEYS = {
+STATE_NAME_TO_PREF_BASE_KEY = {
     # Periscope
     'SurfaceHitLockColor':          'subHighlightPeriscopeHitLock',
     'SurfaceHitNoLockColor':        'subHighlightPeriscopeHitNoLock',
@@ -42,12 +42,12 @@ class ColorPref(object):
     # User can set a value from 0.0, 0.05, 0.10, ..., 0.95, 1.0 => 20 steps in total
 
     def __init__(self, stateName, defaultValue):
-        if stateName in STATE_NAME_TO_PREF_BASE_KEYS:
+        if stateName in STATE_NAME_TO_PREF_BASE_KEY:
             self.stateName = stateName
-            self._prefBaseKey = STATE_NAME_TO_PREF_BASE_KEYS[stateName]
+            self._prefBaseKey = STATE_NAME_TO_PREF_BASE_KEY[stateName]
             self._defaults = self.__createDefaults(defaultValue * ColorPref.VALUE_STEPS)
         else:
-            logError('color name is invalid: {}'.format(stateName))
+            logError('state name is invalid: {}'.format(stateName))
 
     def getValue(self, userPrefSection):
         a = self.__readValue(userPrefSection, ColorNames.ALPHA)
