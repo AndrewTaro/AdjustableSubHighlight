@@ -45,7 +45,7 @@ class ColorPref(object):
         if stateName in STATE_NAME_TO_PREF_BASE_KEY:
             self.stateName = stateName
             self._prefBaseKey = STATE_NAME_TO_PREF_BASE_KEY[stateName]
-            self._defaults = self.__createDefaults(defaultValue * ColorPref.VALUE_STEPS)
+            self._defaults = self.__createDefaults(defaultValue)
         else:
             logError('state name is invalid: {}'.format(stateName))
 
@@ -61,6 +61,7 @@ class ColorPref(object):
         return userPrefSection.get(self._prefBaseKey + colorName, default) / ColorPref.VALUE_STEPS
     
     def __createDefaults(self, defaults):
+        defaults = defaults * ColorPref.VALUE_STEPS
         return {
             ColorNames.RED:   defaults[0],
             ColorNames.GREEN: defaults[1],
