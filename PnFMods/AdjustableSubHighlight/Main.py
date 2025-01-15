@@ -18,13 +18,13 @@ def logError(*args):
     data = [str(i) for i in args]
     utils.logError( '[{}] {}'.format(MOD_NAME, ', '.join(data)) )
 
-class Colors(object):
+class ColorNames(object):
     RED = 'Red'
     GREEN = 'Green'
     BLUE = 'Blue'
-    ALPHA = 'Alpha'
+    ALPHA = 'Opacity'
 
-NAME_COLOR_TO_PREF_BASE_KEYS = {
+STATE_NAME_TO_PREF_BASE_KEYS = {
     # Periscope
     'SurfaceHitLockColor':          'subHighlightPeriscopeHitLock',
     'SurfaceHitNoLockColor':        'subHighlightPeriscopeHitNoLock',
@@ -41,31 +41,31 @@ class ColorPref(object):
     VALUE_STEPS = 20
     # User can set a value from 0.0, 0.05, 0.10, ..., 0.95, 1.0 => 20 steps in total
 
-    def __init__(self, colorName, defaultValue):
-        if colorName in NAME_COLOR_TO_PREF_BASE_KEYS:
-            self.colorName = colorName
-            self._prefBaseKey = NAME_COLOR_TO_PREF_BASE_KEYS[colorName]
+    def __init__(self, stateName, defaultValue):
+        if stateName in STATE_NAME_TO_PREF_BASE_KEYS:
+            self.stateName = stateName
+            self._prefBaseKey = STATE_NAME_TO_PREF_BASE_KEYS[stateName]
             self._defaults = self.__createDefaults(defaultValue * ColorPref.VALUE_STEPS)
         else:
-            logError('color name is invalid: {}'.format(colorName))
+            logError('color name is invalid: {}'.format(stateName))
 
     def getValue(self, userPrefSection):
-        a = self.__readValue(userPrefSection, Colors.ALPHA)
-        r = self.__readValue(userPrefSection, Colors.RED)
-        g = self.__readValue(userPrefSection, Colors.GREEN)
-        b = self.__readValue(userPrefSection, Colors.BLUE)
+        a = self.__readValue(userPrefSection, ColorNames.ALPHA)
+        r = self.__readValue(userPrefSection, ColorNames.RED)
+        g = self.__readValue(userPrefSection, ColorNames.GREEN)
+        b = self.__readValue(userPrefSection, ColorNames.BLUE)
         return Vector4(r,g,b,a)
     
-    def __readValue(self, userPrefSection, color):
-        default = self._defaults[color]
-        return userPrefSection.get(self._prefBaseKey + color, default) / ColorPref.VALUE_STEPS
+    def __readValue(self, userPrefSection, colorName):
+        default = self._defaults[colorName]
+        return userPrefSection.get(self._prefBaseKey + colorName, default) / ColorPref.VALUE_STEPS
     
     def __createDefaults(self, defaults):
         return {
-            Colors.RED:   defaults[0],
-            Colors.GREEN: defaults[1],
-            Colors.BLUE:  defaults[2],
-            Colors.ALPHA: defaults[3],
+            ColorNames.RED:   defaults[0],
+            ColorNames.GREEN: defaults[1],
+            ColorNames.BLUE:  defaults[2],
+            ColorNames.ALPHA: defaults[3],
         }
 
 
@@ -100,9 +100,9 @@ class AdjustableSubHighlight(object):
         # Update colors
         section = self.userPrefs.get(SECTION_NAME, {})
         for colorPref in COLOR_PREFS:
-            colorName = colorPref.colorName
+            stateName = colorPref.stateName
             color = colorPref.getValue(section)
-            ui.setSubmarineUnderwaterColor(colorName, color)
+            ui.setSubmarineUnderwaterColor(stateName, color)
 
 
 adjSubHighlight = AdjustableSubHighlight()
