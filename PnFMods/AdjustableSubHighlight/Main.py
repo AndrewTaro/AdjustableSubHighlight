@@ -8,6 +8,8 @@ try:
 except:
     pass
 
+import TTaroPrefs
+
 CC = constants.UiComponents
 
 def logInfo(*args):
@@ -18,92 +20,63 @@ def logError(*args):
     data = [str(i) for i in args]
     utils.logError( '[{}] {}'.format(MOD_NAME, ', '.join(data)) )
 
-class ColorNames(object):
-    RED = 'Red'
-    GREEN = 'Green'
-    BLUE = 'Blue'
-    ALPHA = 'Opacity'
 
-STATE_NAME_TO_PREF_BASE_KEY = {
-    # Periscope
-    'SurfaceHitLockColor':          'subHighlightPeriscopeHitLock',
-    'SurfaceHitNoLockColor':        'subHighlightPeriscopeHitNoLock',
-    'SurfaceNoHitLockColor':        'subHighlightPeriscopeNoHitLock',
-    'SurfaceNoHitNoLockColor':      'subHighlightPeriscopeNoHitNoLock',
-    # Underwater
-    'UnderwaterHitLockColor':       'subHighlightUnderwaterHitLock',
-    'UnderwaterHitNoLockColor':     'subHighlightUnderwaterHitNoLock',
-    'UnderwaterNoHitLockColor':     'subHighlightUnderwaterNoHitLock',
-    'UnderwaterNoHitNoLockColor':   'subHighlightUnderwaterNoHitNoLock',
+# shortName -> full dotted key, from subs-highlight.schema.json.  The short name IS the engine's
+# own state name, the string ui.setSubmarineUnderwaterColor takes, so nothing is composed anywhere.
+#
+# The legacy store spent FOUR keys on each of these colours -- <base>Red/Green/Blue/Opacity, each a
+# 0-20 step index divided by 20 at read time, so 32 keys and 5% quantisation for 8 colours.  The CMS
+# packs all four channels into one `color` key (the packChannels migration), which is why the
+# ColorPref class and its VALUE_STEPS are gone rather than renamed.
+PREF_KEYS = {
+    'SurfaceHitLockColor':        'subHighlight.psHitLock.color',
+    'SurfaceHitNoLockColor':      'subHighlight.psHitNoLock.color',
+    'SurfaceNoHitLockColor':      'subHighlight.psNoHitLock.color',
+    'SurfaceNoHitNoLockColor':    'subHighlight.psNoHitNoLock.color',
+    'UnderwaterHitLockColor':     'subHighlight.uwHitLock.color',
+    'UnderwaterHitNoLockColor':   'subHighlight.uwHitNoLock.color',
+    'UnderwaterNoHitLockColor':   'subHighlight.uwNoHitLock.color',
+    'UnderwaterNoHitNoLockColor': 'subHighlight.uwNoHitNoLock.color',
 }
 
-class ColorPref(object):
-    VALUE_STEPS = 20
-    # User can set a value from 0.0, 0.05, 0.10, ..., 0.95, 1.0 => 20 steps in total
-
-    def __init__(self, stateName, defaultValue):
-        if stateName in STATE_NAME_TO_PREF_BASE_KEY:
-            self.stateName = stateName
-            self._prefBaseKey = STATE_NAME_TO_PREF_BASE_KEY[stateName]
-            self._defaults = self.__createDefaults(defaultValue)
-        else:
-            logError('state name is invalid: {}'.format(stateName))
-
-    def getValue(self, userPrefSection):
-        a = self.__readValue(userPrefSection, ColorNames.ALPHA)
-        r = self.__readValue(userPrefSection, ColorNames.RED)
-        g = self.__readValue(userPrefSection, ColorNames.GREEN)
-        b = self.__readValue(userPrefSection, ColorNames.BLUE)
-        return Vector4(r,g,b,a)
-    
-    def __readValue(self, userPrefSection, colorName):
-        default = self._defaults[colorName]
-        return userPrefSection.get(self._prefBaseKey + colorName, default) / ColorPref.VALUE_STEPS
-    
-    def __createDefaults(self, defaults):
-        defaults = defaults * ColorPref.VALUE_STEPS
-        return {
-            ColorNames.RED:   defaults[0],
-            ColorNames.GREEN: defaults[1],
-            ColorNames.BLUE:  defaults[2],
-            ColorNames.ALPHA: defaults[3],
-        }
+gPrefs = TTaroPrefs.PrefStore(MOD_NAME, PREF_KEYS)
 
 
-SECTION_NAME = 'chatBoxWidth'
-COLOR_PREFS = [
-    ColorPref(d.name, d.value)
-    for d in ui.getDefaultSubmarineUnderwaterColors()
-]
+def _toVector4(data):
+    """A `color` component -> Vector4(r, g, b, a) with each channel 0..1.
 
-class AdjustableSubHighlight(object):
-    def __init__(self):
-        self.__initUserPrefs()
-        # Init
-        self.__onUserPrefsChanged()
-        events.onUserPrefsChanged(self.__onUserPrefsChanged)
+    Read the component's own unpacked floats, never `value`: a packed 0xAARRGGBB is >= 2**31 and
+    the stored/migrated form is a float, so `value & 0xFF0000` would raise in py2.  `vec4` is
+    already [r, g, b, a] -- the order the engine wants.  It is absent only on the framework's
+    derive() exception fallback (VIEW_CONTRACT), hence the int()-guarded unpack below it.
+    """
+    vec = data.get('vec4')
+    if vec is not None and len(vec) == 4:
+        return Vector4(vec[0], vec[1], vec[2], vec[3])
 
-    def __initUserPrefs(self):
-        userPrefsEntity = dataHub.getSingleEntity('userPrefs')
-        if userPrefsEntity:
-            userPrefs =  userPrefsEntity[CC.userPrefs].userPrefs
-        else:
-            userPrefs = None
-            logError('User Prefs Entity does not exist!')
-        self.userPrefs = userPrefs
-
-    def __onUserPrefsChanged(self, *args):
-        if self.userPrefs is None:
-            # Just to be sure.
-            # Must Never fail when this event is triggered
-            self.__initUserPrefs()
-
-        # Update colors
-        section = self.userPrefs.get(SECTION_NAME, {})
-        for colorPref in COLOR_PREFS:
-            stateName = colorPref.stateName
-            color = colorPref.getValue(section)
-            ui.setSubmarineUnderwaterColor(stateName, color)
+    packed = int(data['value']) & 0xFFFFFFFF
+    a = ((packed >> 24) & 0xFF) / 255.0
+    r = ((packed >> 16) & 0xFF) / 255.0
+    g = ((packed >> 8) & 0xFF) / 255.0
+    b = (packed & 0xFF) / 255.0
+    return Vector4(r, g, b, a)
 
 
-adjSubHighlight = AdjustableSubHighlight()
+def applyColors(*args):
+    """Push all eight colours into the engine.
+
+    Unlike a read-in-the-draw-path consumer, this mod WRITES its values out once, so a
+    subscription is load-bearing here rather than an optimisation: without it a config-panel edit
+    would not reach setSubmarineUnderwaterColor until the next launch.  The callback takes *args
+    because evDataChanged passes the component and that arity is not contractual.
+    """
+    for stateName in PREF_KEYS:
+        ui.setSubmarineUnderwaterColor(stateName, _toVector4(gPrefs.data(stateName)))
+
+
+def onPrefsReady():
+    applyColors()
+    gPrefs.subscribeAll(applyColors)
+
+
+gPrefs.start(onReady=onPrefsReady)
