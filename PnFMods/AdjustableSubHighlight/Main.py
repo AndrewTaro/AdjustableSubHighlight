@@ -29,14 +29,14 @@ def logError(*args):
 # packs all four channels into one `color` key (the packChannels migration), which is why the
 # ColorPref class and its VALUE_STEPS are gone rather than renamed.
 PREF_KEYS = {
-    'SurfaceHitLockColor':        'subHighlight.psHitLock.color',
-    'SurfaceHitNoLockColor':      'subHighlight.psHitNoLock.color',
-    'SurfaceNoHitLockColor':      'subHighlight.psNoHitLock.color',
-    'SurfaceNoHitNoLockColor':    'subHighlight.psNoHitNoLock.color',
-    'UnderwaterHitLockColor':     'subHighlight.uwHitLock.color',
-    'UnderwaterHitNoLockColor':   'subHighlight.uwHitNoLock.color',
-    'UnderwaterNoHitLockColor':   'subHighlight.uwNoHitLock.color',
-    'UnderwaterNoHitNoLockColor': 'subHighlight.uwNoHitNoLock.color',
+    'SurfaceHitLockColor':        'subHighlight.psHitLock',
+    'SurfaceHitNoLockColor':      'subHighlight.psHitNoLock',
+    'SurfaceNoHitLockColor':      'subHighlight.psNoHitLock',
+    'SurfaceNoHitNoLockColor':    'subHighlight.psNoHitNoLock',
+    'UnderwaterHitLockColor':     'subHighlight.uwHitLock',
+    'UnderwaterHitNoLockColor':   'subHighlight.uwHitNoLock',
+    'UnderwaterNoHitLockColor':   'subHighlight.uwNoHitLock',
+    'UnderwaterNoHitNoLockColor': 'subHighlight.uwNoHitNoLock',
 }
 
 gPrefs = TTaroPrefs.PrefStore(MOD_NAME, PREF_KEYS)
