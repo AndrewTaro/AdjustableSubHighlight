@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 4,
+  "id": "cmtkswuwz000hv01439ftu7ux",
+  "author": "ttaro",
+  "modName": "Subs Highlight",
+  "slug": "subs-highlight",
+  "order": 17,
+  "tree": [
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.psHitLock",
+      "label": "IDS_TT_TITLE_PERISCOPE_HIT_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 3435924736,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.psHitNoLock",
+      "label": "IDS_TT_TITLE_PERISCOPE_HIT_NO_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 1724648704,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.psNoHitLock",
+      "label": "IDS_TT_TITLE_PERISCOPE_NO_HIT_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 4278190080,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.psNoHitNoLock",
+      "label": "IDS_TT_TITLE_PERISCOPE_NO_HIT_NO_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 2147483648,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.uwHitLock",
+      "label": "IDS_TT_TITLE_UNDERWATER_HIT_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 869010688,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.uwHitNoLock",
+      "label": "IDS_TT_TITLE_UNDERWATER_HIT_NO_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 449580543,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.uwNoHitLock",
+      "label": "IDS_TT_TITLE_UNDERWATER_NO_HIT_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 4278190080,
+      "min": 0,
+      "max": 4294967295
+    },
+    {
+      "kind": "setting",
+      "control": "color",
+      "key": "subHighlight.uwNoHitNoLock",
+      "label": "IDS_TT_TITLE_UNDERWATER_NO_HIT_NO_LOCK",
+      "hint": {
+        "text": "IDS_TT_HINT_RELOCK_TO_APPLY"
+      },
+      "default": 2147483648,
+      "min": 0,
+      "max": 4294967295
+    }
+  ]
+}

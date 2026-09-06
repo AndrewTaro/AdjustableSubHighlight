@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 4,
+  "opVocabularyVersion": 1,
+  "slug": "subs-highlight",
+  "migrations": [
+    {
+      "version": 1,
+      "description": "per-channel sliders → packed ARGB",
+      "ops": [
+        {
+          "op": "transform",
+          "from": "subHighlight.psHitLock",
+          "to": "subHighlight.psHitLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 3435924736,
+            "alphaFrom": "subHighlightPeriscopeHitLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightPeriscopeHitLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightPeriscopeHitLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightPeriscopeHitLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.psHitNoLock",
+          "to": "subHighlight.psHitNoLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 1724648704,
+            "alphaFrom": "subHighlightPeriscopeHitNoLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightPeriscopeHitNoLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightPeriscopeHitNoLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightPeriscopeHitNoLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.psNoHitLock",
+          "to": "subHighlight.psNoHitLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 4278190080,
+            "alphaFrom": "subHighlightPeriscopeNoHitLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightPeriscopeNoHitLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightPeriscopeNoHitLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightPeriscopeNoHitLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.psNoHitNoLock",
+          "to": "subHighlight.psNoHitNoLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 2147483648,
+            "alphaFrom": "subHighlightPeriscopeNoHitNoLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightPeriscopeNoHitNoLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightPeriscopeNoHitNoLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightPeriscopeNoHitNoLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.uwHitLock",
+          "to": "subHighlight.uwHitLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 869010688,
+            "alphaFrom": "subHighlightUnderwaterHitLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightUnderwaterHitLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightUnderwaterHitLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightUnderwaterHitLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.uwHitNoLock",
+          "to": "subHighlight.uwHitNoLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 449580543,
+            "alphaFrom": "subHighlightUnderwaterHitNoLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightUnderwaterHitNoLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightUnderwaterHitNoLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightUnderwaterHitNoLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.uwNoHitLock",
+          "to": "subHighlight.uwNoHitLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 4278190080,
+            "alphaFrom": "subHighlightUnderwaterNoHitLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightUnderwaterNoHitLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightUnderwaterNoHitLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightUnderwaterNoHitLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        },
+        {
+          "op": "transform",
+          "from": "subHighlight.uwNoHitNoLock",
+          "to": "subHighlight.uwNoHitNoLock",
+          "transform": "packChannels",
+          "args": {
+            "default": 2147483648,
+            "alphaFrom": "subHighlightUnderwaterNoHitNoLockOpacity",
+            "alphaMin": 0,
+            "alphaStep": 0.05,
+            "redFrom": "subHighlightUnderwaterNoHitNoLockRed",
+            "redMin": 0,
+            "redStep": 0.05,
+            "greenFrom": "subHighlightUnderwaterNoHitNoLockGreen",
+            "greenMin": 0,
+            "greenStep": 0.05,
+            "blueFrom": "subHighlightUnderwaterNoHitNoLockBlue",
+            "blueMin": 0,
+            "blueStep": 0.05
+          }
+        }
+      ]
+    }
+  ]
+}
