@@ -1,178 +1,994 @@
 {
   "schemaVersion": 4,
-  "opVocabularyVersion": 1,
+  "opVocabularyVersion": 3,
   "slug": "subs-highlight",
   "migrations": [
     {
       "version": 1,
-      "description": "per-channel sliders → packed ARGB",
+      "description": "legacy values decoded and folded onto the derived keys",
       "ops": [
         {
           "op": "transform",
-          "from": "subHighlight.psHitLock",
+          "transform": "compose",
           "to": "subHighlight.psHitLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 3435924736,
-            "alphaFrom": "subHighlightPeriscopeHitLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightPeriscopeHitLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightPeriscopeHitLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightPeriscopeHitLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightPeriscopeHitLockOpacity",
+              "default": 16
+            },
+            {
+              "key": "subHighlightPeriscopeHitLockRed",
+              "default": 16
+            },
+            {
+              "key": "subHighlightPeriscopeHitLockGreen",
+              "default": 1
+            },
+            {
+              "key": "subHighlightPeriscopeHitLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.psHitNoLock",
+          "transform": "compose",
           "to": "subHighlight.psHitNoLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 1724648704,
-            "alphaFrom": "subHighlightPeriscopeHitNoLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightPeriscopeHitNoLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightPeriscopeHitNoLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightPeriscopeHitNoLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightPeriscopeHitNoLockOpacity",
+              "default": 8
+            },
+            {
+              "key": "subHighlightPeriscopeHitNoLockRed",
+              "default": 16
+            },
+            {
+              "key": "subHighlightPeriscopeHitNoLockGreen",
+              "default": 1
+            },
+            {
+              "key": "subHighlightPeriscopeHitNoLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.psNoHitLock",
+          "transform": "compose",
           "to": "subHighlight.psNoHitLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 4278190080,
-            "alphaFrom": "subHighlightPeriscopeNoHitLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightPeriscopeNoHitLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightPeriscopeNoHitLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightPeriscopeNoHitLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightPeriscopeNoHitLockOpacity",
+              "default": 20
+            },
+            {
+              "key": "subHighlightPeriscopeNoHitLockRed",
+              "default": 0
+            },
+            {
+              "key": "subHighlightPeriscopeNoHitLockGreen",
+              "default": 0
+            },
+            {
+              "key": "subHighlightPeriscopeNoHitLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.psNoHitNoLock",
+          "transform": "compose",
           "to": "subHighlight.psNoHitNoLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 2147483648,
-            "alphaFrom": "subHighlightPeriscopeNoHitNoLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightPeriscopeNoHitNoLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightPeriscopeNoHitNoLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightPeriscopeNoHitNoLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightPeriscopeNoHitNoLockOpacity",
+              "default": 10
+            },
+            {
+              "key": "subHighlightPeriscopeNoHitNoLockRed",
+              "default": 0
+            },
+            {
+              "key": "subHighlightPeriscopeNoHitNoLockGreen",
+              "default": 0
+            },
+            {
+              "key": "subHighlightPeriscopeNoHitNoLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.uwHitLock",
+          "transform": "compose",
           "to": "subHighlight.uwHitLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 869010688,
-            "alphaFrom": "subHighlightUnderwaterHitLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightUnderwaterHitLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightUnderwaterHitLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightUnderwaterHitLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightUnderwaterHitLockOpacity",
+              "default": 4
+            },
+            {
+              "key": "subHighlightUnderwaterHitLockRed",
+              "default": 16
+            },
+            {
+              "key": "subHighlightUnderwaterHitLockGreen",
+              "default": 1
+            },
+            {
+              "key": "subHighlightUnderwaterHitLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.uwHitNoLock",
+          "transform": "compose",
           "to": "subHighlight.uwHitNoLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 449580543,
-            "alphaFrom": "subHighlightUnderwaterHitNoLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightUnderwaterHitNoLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightUnderwaterHitNoLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightUnderwaterHitNoLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightUnderwaterHitNoLockOpacity",
+              "default": 2
+            },
+            {
+              "key": "subHighlightUnderwaterHitNoLockRed",
+              "default": 16
+            },
+            {
+              "key": "subHighlightUnderwaterHitNoLockGreen",
+              "default": 1
+            },
+            {
+              "key": "subHighlightUnderwaterHitNoLockBlue",
+              "default": 20
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.uwNoHitLock",
+          "transform": "compose",
           "to": "subHighlight.uwNoHitLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 4278190080,
-            "alphaFrom": "subHighlightUnderwaterNoHitLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightUnderwaterNoHitLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightUnderwaterNoHitLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightUnderwaterNoHitLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightUnderwaterNoHitLockOpacity",
+              "default": 20
+            },
+            {
+              "key": "subHighlightUnderwaterNoHitLockRed",
+              "default": 0
+            },
+            {
+              "key": "subHighlightUnderwaterNoHitLockGreen",
+              "default": 0
+            },
+            {
+              "key": "subHighlightUnderwaterNoHitLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         },
         {
           "op": "transform",
-          "from": "subHighlight.uwNoHitNoLock",
+          "transform": "compose",
           "to": "subHighlight.uwNoHitNoLock",
-          "transform": "packChannels",
-          "args": {
-            "default": 2147483648,
-            "alphaFrom": "subHighlightUnderwaterNoHitNoLockOpacity",
-            "alphaMin": 0,
-            "alphaStep": 0.05,
-            "redFrom": "subHighlightUnderwaterNoHitNoLockRed",
-            "redMin": 0,
-            "redStep": 0.05,
-            "greenFrom": "subHighlightUnderwaterNoHitNoLockGreen",
-            "greenMin": 0,
-            "greenStep": 0.05,
-            "blueFrom": "subHighlightUnderwaterNoHitNoLockBlue",
-            "blueMin": 0,
-            "blueStep": 0.05
+          "sources": [
+            {
+              "key": "subHighlightUnderwaterNoHitNoLockOpacity",
+              "default": 10
+            },
+            {
+              "key": "subHighlightUnderwaterNoHitNoLockRed",
+              "default": 0
+            },
+            {
+              "key": "subHighlightUnderwaterNoHitNoLockGreen",
+              "default": 0
+            },
+            {
+              "key": "subHighlightUnderwaterNoHitNoLockBlue",
+              "default": 0
+            }
+          ],
+          "when": {
+            "or": [
+              {
+                "present": 0
+              },
+              {
+                "present": 1
+              },
+              {
+                "present": 2
+              },
+              {
+                "present": 3
+              }
+            ]
+          },
+          "value": {
+            "argb": {
+              "a": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 0
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "r": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 1
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "g": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 2
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              },
+              "b": {
+                "mul": [
+                  {
+                    "add": [
+                      0,
+                      {
+                        "mul": [
+                          {
+                            "round": {
+                              "src": 3
+                            }
+                          },
+                          0.05
+                        ]
+                      }
+                    ]
+                  },
+                  255
+                ]
+              }
+            }
           }
         }
       ]
