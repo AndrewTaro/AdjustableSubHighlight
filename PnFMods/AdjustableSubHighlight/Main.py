@@ -8,7 +8,7 @@ try:
 except:
     pass
 
-import TTaroPrefs
+import Hub
 
 CC = constants.UiComponents
 
@@ -21,13 +21,12 @@ def logError(*args):
     utils.logError( '[{}] {}'.format(MOD_NAME, ', '.join(data)) )
 
 
-# shortName -> full dotted key, from subs-highlight.schema.json.  The short name IS the engine's
+# shortName -> full dotted key, from ttaro-subs-highlight.schema.json.  The short name IS the engine's
 # own state name, the string ui.setSubmarineUnderwaterColor takes, so nothing is composed anywhere.
 #
 # The legacy store spent FOUR keys on each of these colours -- <base>Red/Green/Blue/Opacity, each a
 # 0-20 step index divided by 20 at read time, so 32 keys and 5% quantisation for 8 colours.  The CMS
-# packs all four channels into one `color` key (the packChannels migration), which is why the
-# ColorPref class and its VALUE_STEPS are gone rather than renamed.
+# packs all four channels into one `color` key (the packChannels migration).
 PREF_KEYS = {
     'SurfaceHitLockColor':        'ttaro.subHighlight.psHitLock',
     'SurfaceHitNoLockColor':      'ttaro.subHighlight.psHitNoLock',
@@ -38,8 +37,6 @@ PREF_KEYS = {
     'UnderwaterNoHitLockColor':   'ttaro.subHighlight.uwNoHitLock',
     'UnderwaterNoHitNoLockColor': 'ttaro.subHighlight.uwNoHitNoLock',
 }
-
-gPrefs = TTaroPrefs.PrefStore(MOD_NAME, PREF_KEYS)
 
 
 def _toVector4(data):
@@ -79,4 +76,4 @@ def onPrefsReady():
     gPrefs.subscribeAll(applyColors)
 
 
-gPrefs.start(onReady=onPrefsReady)
+gPrefs = Hub.Prefs(MOD_NAME, PREF_KEYS, onReady=onPrefsReady)
