@@ -59,21 +59,36 @@ def _toVector4(data):
     return Vector4(r, g, b, a)
 
 
-def applyColors(*args):
+def applyColor(stateName):
+    ui.setSubmarineUnderwaterColor(stateName, _toVector4(gPrefs.data(stateName)))
+
+
+def applyColors():
     """Push all eight colours into the engine.
 
-    Unlike a read-in-the-draw-path consumer, this mod WRITES its values out once, so a
-    subscription is load-bearing here rather than an optimisation: without it a config-panel edit
-    would not reach setSubmarineUnderwaterColor until the next launch.  The callback takes *args
-    because evDataChanged passes the component and that arity is not contractual.
+    Unlike a read-in-the-draw-path consumer, this mod WRITES its values out, so a subscription is
+    load-bearing here rather than an optimisation: without one a config-panel edit would not reach
+    setSubmarineUnderwaterColor until the next launch.
     """
     for stateName in PREF_KEYS:
-        ui.setSubmarineUnderwaterColor(stateName, _toVector4(gPrefs.data(stateName)))
+        applyColor(stateName)
+
+
+def _colorPusher(stateName):
+    # A factory, not a default argument: evDataChanged passes the component as the first
+    # positional arg, which would land in a `_state=stateName` default and be pushed as the
+    # state name.  Closing over the factory's parameter cannot be overwritten that way.
+    def push(*args):
+        applyColor(stateName)
+    return push
 
 
 def onPrefsReady():
     applyColors()
-    gPrefs.subscribeAll(applyColors)
+    # Per key, not subscribeAll: editing one colour would otherwise re-push all eight, seven of
+    # them unchanged, on every write the config panel makes while a slider is dragged.
+    for stateName in PREF_KEYS:
+        gPrefs.subscribe(stateName, _colorPusher(stateName))
 
 
 gPrefs = Hub.Prefs(MOD_NAME, PREF_KEYS, onReady=onPrefsReady)
